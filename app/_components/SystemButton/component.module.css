@@ -1,0 +1,26 @@
+.button {
+  align-items: center;
+  display: flex;
+  color: white;
+  flex-direction: row;
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  user-select: none;
+}
+.button:hover {
+  background-color: #316AC5;
+}
+.button:hover > .icon {
+  filter: brightness(120%);
+}
+.icon {
+  height: 26px;
+  width: 26px;
+}
+.text {
+  font-size: 12px;
+  font-weight: 300;
+}
+.underline {
+  text-decoration: underline;
+}

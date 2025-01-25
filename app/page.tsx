@@ -1,95 +1,98 @@
-import Image from "next/image";
+"use client";
 import styles from "./page.module.css";
+import { useEffect, useState } from "react";
+
+import Taskbar from "@/app/_components/Taskbar/Taskbar";
+import Desktop from "./_components/Desktop/Desktop";
+import StartMenu from "./_components/StartMenu/StartMenu";
+import Window from "./_components/Window/Window";
+
+import { WindowInfo } from "./types/WindowInfo";
+
+import desktopPic from "@/public/desktop.jpg";
 
 export default function Home() {
+  const siteLinks = [
+    { title: 'LinkedIn', url: 'https://www.linkedin.com/in/thomas-waldick/' },
+    { title: 'GitHub', url: 'https://github.com/Thomaswaldick' },
+    { title: 'Codecademy', url: 'https://www.codecademy.com/profiles/with_thomas' },
+    { title: 'About This Site', url: 'https://github.com/Thomaswaldick/thomas-waldick-portfolio' },
+  ]
+  const [activeWindows, setActiveWindows] = useState<WindowInfo[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [startMenuOpened, setStartMenuOpened] = useState(false);
+
+  useEffect(() => {
+    if (window.screen.width < 800 || window.screen.height < 600) {
+      setIsSmallScreen(true)
+    }
+    const userAgent = navigator.userAgent;
+    if (/Mobi|Android/i.test(userAgent)) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  }, [])
+  useEffect(() => {
+    const toggleStartMenuButton = (e: KeyboardEvent) => {
+      if (!isSmallScreen && (e.code == "OSLeft" || e.code == "OSRight" || e.code == "MetaLeft")) {
+        setStartMenuOpened(prev => !prev)
+      }
+    }
+    window.addEventListener('click', closeStartMenu)
+    window.addEventListener('keydown', toggleStartMenuButton)
+    return () => {
+      window.removeEventListener('click', closeStartMenu)
+      window.removeEventListener('keydown', toggleStartMenuButton)
+    }
+  }, [isSmallScreen])
+
+  const closeStartMenu = () => {
+    setStartMenuOpened(false)
+  }
+  const closeWindow = (windowInfo: WindowInfo) => {
+    setActiveWindows(prevWindows => prevWindows.filter((w) => w.title !== windowInfo.title))
+  }
+  const openWindow = (windowInfo: WindowInfo) => {
+    if (startMenuOpened) {
+      setStartMenuOpened(false)
+    }
+    const siteLink = siteLinks.find((site) => site.title === windowInfo.title)
+    if (siteLink) {
+      window.open(siteLink.url, "_blank")
+    } else if ((isSmallScreen || isMobile) && windowInfo.title === "My CV") {
+      window.open("/Thomas Waldick CV.pdf", "_blank")
+    } else if (!isSmallScreen) {
+      const windowAlreadyOpen = activeWindows.find((w) => w.title === windowInfo.title)
+      if (!windowAlreadyOpen) {
+        setActiveWindows(prevWindows => [{ icon: windowInfo.icon, title: windowInfo.title, zIndex: prevWindows.length + 1 }, ...prevWindows])
+      }
+    }
+  }
+  const toggleStartMenu = () => {
+    setStartMenuOpened(prev => !prev)
+  }
+
   return (
     <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+      <div className={styles.monitor}>
+        <div className={styles.screen} style={{
+          backgroundImage: `url(${desktopPic.src})`,
+          backgroundSize: 'cover',
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100svh',
+          justifyContent: 'end'
+        }}>
+          {activeWindows.map((window) =>
+            <Window closeWindow={closeWindow} windowInfo={window} key={window.title} />
+          )}
+          <Desktop closeStartMenu={closeStartMenu} isSmallScreen={isSmallScreen} openWindow={openWindow} startMenuOpened={startMenuOpened} />
+          <StartMenu openWindow={openWindow} startMenuOpened={startMenuOpened} />
+          <Taskbar activeWindows={activeWindows} isSmallScreen={isSmallScreen} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }

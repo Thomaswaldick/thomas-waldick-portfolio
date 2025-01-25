@@ -1,0 +1,107 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+.close {
+  all: unset;
+  background-image: url("@/public/close.svg");
+  height: 20px;
+  width: 20px;
+}
+.close:active {
+  background-image: url("@/public/close-active.svg") !important;
+}
+.close:hover {
+  background-image: url("@/public/close-hover.svg");
+}
+.content {
+  border-bottom: 4px solid rgba(0, 61, 215, 1);
+  border-left: 4px solid rgba(0, 61, 215, 1);
+  border-right: 4px solid rgba(0, 61, 215, 1);
+  display: flex;
+  flex: 1;
+}
+.icon {
+  height: 20px;
+  margin-left: 3px;
+  margin-right: 6px;
+  width: 20px;
+  user-select: none;
+}
+.maximize {
+  all: unset;
+  background-image: url("@/public/maximize.svg");
+  filter: brightness(60%);
+  height: 20px;
+  width: 20px;
+}
+/* .maximize:active {
+  background-image: url("@/public/maximize-active.svg") !important;
+}
+.maximize:hover {
+  background-image: url("@/public/maximize-hover.svg");
+} */
+.minimize {
+  all: unset;
+  background-image: url("@/public/minimize.svg");
+  filter: brightness(60%);
+  height: 20px;
+  width: 20px;
+}
+/* .minimize:active {
+  background-image: url("@/public/minimize-active.svg") !important;
+}
+.minimize:hover {
+  background-image: url("@/public/minimize-hover.svg");
+} */
+.title {
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  text-shadow: 1px 1px #0f1089;
+  user-select: none;
+}
+.titleBar {
+  align-items: center;
+  background: linear-gradient(
+        180deg,
+        rgba(9, 151, 255, 1) 0%,
+        rgba(0, 83, 238, 1) 8%,
+        rgba(0, 80, 238, 1) 40%,
+        rgba(0, 102, 255, 1) 88%,
+        rgba(0, 102, 255, 1) 93%,
+        rgba(0, 91, 255, 1) 95%,
+        rgba(0, 61, 215, 1) 96%,
+        rgba(0, 61, 215, 1) 100%
+    );
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 1px solid rgba(0, 61, 215, 1);
+  border-top: 1px solid #0831d9;
+  border-left: 1px solid #0831d9;
+  border-right: 1px solid #001ea0;
+  display: flex;
+  flex-direction: row;
+  height: 30px;
+  padding: 3px 5px 3px 3px;
+}
+.titleBarSpacer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: space-between;
+}
+.window {
+  background-color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  position: absolute;
+  top: 75px;
+  left: 75px;
+  width: 800px;
+}

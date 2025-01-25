@@ -1,0 +1,9 @@
+.desktop {
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 24px;
+  overflow: none;
+  padding: 0px 10px 0 5px;
+}

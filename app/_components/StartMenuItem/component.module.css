@@ -1,0 +1,47 @@
+.blue {
+  color: #0A236A;
+}
+.bold {
+  font-weight: bold;
+}
+.favoriteContainer {
+  display: flex;
+  flex-direction: column;
+}
+.favoriteIcon {
+  height: 32px;
+  width: 32px;
+}
+.icon {
+  height: 24px;
+  width: 24px;
+}
+.item {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  padding: 2px;
+  user-select: none;
+}
+.item:hover {
+  background-color: #316AC5;
+}
+.item:hover > .favoriteContainer > .subtext {
+  color: white;
+}
+.item:hover > .text {
+  color: white;
+}
+.item:hover > .favoriteContainer > .text {
+  color: white;
+}
+.subtext {
+  color: gray;
+  font-size: 11px;
+  font-weight: 300;
+}
+.text {
+  color: black;
+  font-size: 12px;
+}

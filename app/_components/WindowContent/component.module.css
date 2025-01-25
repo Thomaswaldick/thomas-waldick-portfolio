@@ -1,0 +1,28 @@
+.container {
+  flex: 1;
+}
+.cv {
+  height: 100%;
+  width: 100%;
+}
+.defaultContainer {
+  align-items: center;
+  background-color: #ECE9D8;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  height: 100%;
+  justify-content: center;
+  padding: 20px;
+}
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  user-select: none;
+}
+.warning {
+  height: 50px;
+  width: 50px;
+  user-select: none;
+}
