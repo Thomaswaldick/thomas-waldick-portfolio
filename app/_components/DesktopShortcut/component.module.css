@@ -1,0 +1,29 @@
+.desktopIcon {
+  height: 34px;
+  width: 34px;
+  text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+.desktopShortcut {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 70px;
+}
+.desktopText {
+  color: white;
+  font-size: 12px;
+  padding: 1px;
+  font-weight: 300;
+  text-align: center;
+  text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+.selectedShortcut > .desktopIcon {
+  filter: brightness(0.7) saturate(1.5);
+}
+.selectedText {
+  background: #27559fba;
+  text-shadow: none;
+}
