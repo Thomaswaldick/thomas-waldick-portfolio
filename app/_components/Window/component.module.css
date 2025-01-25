@@ -5,15 +5,15 @@
 }
 .close {
   all: unset;
-  background-image: url("@/public/close.svg");
+  background-image: url("/close.svg");
   height: 20px;
   width: 20px;
 }
 .close:active {
-  background-image: url("@/public/close-active.svg") !important;
+  background-image: url("/close-active.svg") !important;
 }
 .close:hover {
-  background-image: url("@/public/close-hover.svg");
+  background-image: url("/close-hover.svg");
 }
 .content {
   border-bottom: 4px solid rgba(0, 61, 215, 1);
@@ -31,29 +31,29 @@
 }
 .maximize {
   all: unset;
-  background-image: url("@/public/maximize.svg");
+  background-image: url("/maximize.svg");
   filter: brightness(60%);
   height: 20px;
   width: 20px;
 }
 /* .maximize:active {
-  background-image: url("@/public/maximize-active.svg") !important;
+  background-image: url("/maximize-active.svg") !important;
 }
 .maximize:hover {
-  background-image: url("@/public/maximize-hover.svg");
+  background-image: url("/maximize-hover.svg");
 } */
 .minimize {
   all: unset;
-  background-image: url("@/public/minimize.svg");
+  background-image: url("/minimize.svg");
   filter: brightness(60%);
   height: 20px;
   width: 20px;
 }
 /* .minimize:active {
-  background-image: url("@/public/minimize-active.svg") !important;
+  background-image: url("/minimize-active.svg") !important;
 }
 .minimize:hover {
-  background-image: url("@/public/minimize-hover.svg");
+  background-image: url("/minimize-hover.svg");
 } */
 .title {
   color: white;
