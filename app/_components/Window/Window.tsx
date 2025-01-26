@@ -9,11 +9,9 @@ interface Props {
   windowInfo: WindowInfo;
 }
 export default function Window({ closeWindow, windowInfo }:Props) {
-  // const isDragging = useRef(false)
   const [position, setPosition] = useState({ x: 100, y: 100 }); // Initial position
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [windowSize, setWindowSize] = useState({ height: 600, width: 800 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -29,11 +27,6 @@ export default function Window({ closeWindow, windowInfo }:Props) {
       document.removeEventListener("mouseup", handleMouseUp)
     }
   }, [isDragging, offset])
-  useEffect(() => {
-    if (windowInfo.title !== 'My CV') {
-      setWindowSize({height: 200, width: 400})
-    }
-  }, [windowInfo])
   const handleCloseClick = () => {
     closeWindow(windowInfo)
   }
@@ -53,10 +46,10 @@ export default function Window({ closeWindow, windowInfo }:Props) {
   };
   return (
     <div className={styles.window} style={{
-      height: `${windowSize.height}px`,
+      height: `${windowInfo.title === 'My CV' ? 600 : 200}px`,
       left: `${position.x}px`,
       top: `${position.y}px`,
-      width: `${windowSize.width}px`,
+      width: `${windowInfo.title === 'My CV' ? 800 : 400}px`,
       zIndex: windowInfo.zIndex
     }}>
       {/* Title Bar */}

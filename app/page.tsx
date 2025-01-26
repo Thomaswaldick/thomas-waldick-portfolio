@@ -75,24 +75,15 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.monitor}>
-        <div className={styles.screen} style={{
-          backgroundImage: `url(${desktopPic.src})`,
-          backgroundSize: 'cover',
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100svh',
-          justifyContent: 'end'
-        }}>
-          {activeWindows.map((window) =>
-            <Window closeWindow={closeWindow} windowInfo={window} key={window.title} />
-          )}
-          <Desktop closeStartMenu={closeStartMenu} isSmallScreen={isSmallScreen} openWindow={openWindow} startMenuOpened={startMenuOpened} />
-          <StartMenu openWindow={openWindow} startMenuOpened={startMenuOpened} />
-          <Taskbar activeWindows={activeWindows} isSmallScreen={isSmallScreen} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
-        </div>
-      </div>
+    <div className={styles.page} style={{
+      backgroundImage: `url(${desktopPic.src})`,
+    }}>
+      {activeWindows.map((window) =>
+        <Window closeWindow={closeWindow} windowInfo={window} key={window.title} />
+      )}
+      <Desktop closeStartMenu={closeStartMenu} isSmallScreen={isSmallScreen} openWindow={openWindow} startMenuOpened={startMenuOpened} />
+      <StartMenu openWindow={openWindow} startMenuOpened={startMenuOpened} />
+      <Taskbar activeWindows={activeWindows} isSmallScreen={isSmallScreen} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
     </div>
   );
 }
