@@ -38,7 +38,6 @@ export default function Desktop({ closeStartMenu, isSmallScreen, openWindow, sta
       setSelectedShortcut('')
     }
     if (window.screen.width > 800) {
-      console.log('opening cv')
       openWindow({icon: resumePic, title: "My CV", zIndex: 0})
     }
     window.addEventListener('click', clearShortcut)
