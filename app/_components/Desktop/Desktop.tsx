@@ -28,7 +28,7 @@ export default function Desktop({ closeStartMenu, mobileFeatures, screenSettings
       { icon: github, name: 'GitHub', tooltip: "Opens my GitHub profile in a new tab." },
       { icon: codecademy, name: 'Codecademy', tooltip: "Opens my Codecademy profile in a new tab." },
     ]
-    if (mobileFeatures) {
+    if (screenSettingsSet && mobileFeatures) {
       return shortcuts.filter((shortcut) => shortcut.name !== "Recycle Bin");
     }
     return shortcuts;
@@ -64,7 +64,7 @@ export default function Desktop({ closeStartMenu, mobileFeatures, screenSettings
 
   return (
     <div className={styles.desktop}>
-      {desktopShortcuts.map((desktopShortcut) =>
+      {screenSettingsSet && desktopShortcuts.map((desktopShortcut) =>
         <DesktopShortcut key={desktopShortcut.name} shortcut={desktopShortcut}
           isSelected={selectedShortcut === desktopShortcut.name}
           onClick={handleClick} openWindow={openWindow} />
