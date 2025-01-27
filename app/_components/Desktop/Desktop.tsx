@@ -12,11 +12,12 @@ import codecademy from "@/public/codecademy.ico";
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface Props {
   closeStartMenu: () => void;
+  isMobile: boolean;
   isSmallScreen: boolean;
   openWindow: (windowInfo: WindowInfo) => void;
   startMenuOpened: boolean;
 }
-export default function Desktop({ closeStartMenu, isSmallScreen, openWindow, startMenuOpened }:Props) {
+export default function Desktop({ closeStartMenu, isMobile, isSmallScreen, openWindow, startMenuOpened }:Props) {
   const [selectedShortcut, setSelectedShortcut] = useState('')
   const desktopShortcuts = useMemo(() => {
     const shortcuts = [
@@ -27,24 +28,24 @@ export default function Desktop({ closeStartMenu, isSmallScreen, openWindow, sta
       { icon: github, name: 'GitHub', tooltip: "Opens my GitHub profile in a new tab." },
       { icon: codecademy, name: 'Codecademy', tooltip: "Opens my Codecademy profile in a new tab." },
     ]
-    if (isSmallScreen) {
+    if (isSmallScreen || isMobile) {
       return shortcuts.filter((shortcut) => shortcut.name !== "Recycle Bin");
     }
     return shortcuts;
-  }, [isSmallScreen])
+  }, [isMobile, isSmallScreen])
 
   useEffect(() => {
     const clearShortcut = () => {
       setSelectedShortcut('')
     }
-    if (window.screen.width > 800) {
+    if (!isSmallScreen || !isMobile) {
       openWindow({icon: resumePic, title: "My CV", zIndex: 0})
     }
     window.addEventListener('click', clearShortcut)
     return () => {
       window.removeEventListener('click', clearShortcut)
     }
-  }, [])
+  }, [isMobile, isSmallScreen])
   useEffect(() => {
     if (startMenuOpened) {
       setSelectedShortcut('')

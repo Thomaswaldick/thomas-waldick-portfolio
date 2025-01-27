@@ -8,11 +8,12 @@ import { WindowInfo } from "@/app/types/WindowInfo";
 
 interface Props {
   activeWindows: WindowInfo[];
+  isMobile: boolean;
   isSmallScreen: boolean;
   startMenuOpened: boolean;
   toggleStartMenu: () => void;
 }
-export default function Taskbar({ activeWindows, isSmallScreen, startMenuOpened, toggleStartMenu }:Props) {
+export default function Taskbar({ activeWindows, isMobile, isSmallScreen, startMenuOpened, toggleStartMenu }:Props) {
   const [startButtonPic, setStartButtonPic] = useState(startButtonDefaultPic.src);
   const [timeString, setTimeString] = useState('');
   useEffect(() => {
@@ -84,7 +85,7 @@ export default function Taskbar({ activeWindows, isSmallScreen, startMenuOpened,
   return (
     <nav className={styles.taskBar} aria-label="Task Bar">
       <div className={styles.row}>
-        {!isSmallScreen ?
+        {!isSmallScreen && !isMobile ?
           <button className={styles.startButton} aria-label="Start Button" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
             <Image src={startButtonPic} alt="Start Button Image" height={30} width={100} />
           </button> : null
