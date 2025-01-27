@@ -38,7 +38,7 @@ export default function Desktop({ closeStartMenu, isMobile, isSmallScreen, openW
     const clearShortcut = () => {
       setSelectedShortcut('')
     }
-    if (!isSmallScreen && isMobile) {
+    if (!isSmallScreen || isMobile) {
       openWindow({icon: resumePic, title: "My CV", zIndex: 0})
     }
     window.addEventListener('click', clearShortcut)
