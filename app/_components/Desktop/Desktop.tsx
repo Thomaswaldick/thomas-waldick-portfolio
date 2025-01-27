@@ -12,12 +12,12 @@ import codecademy from "@/public/codecademy.ico";
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface Props {
   closeStartMenu: () => void;
-  isMobile: boolean;
-  isSmallScreen: boolean;
+  mobileFeatures: boolean;
   openWindow: (windowInfo: WindowInfo) => void;
+  screenSettingsSet: boolean;
   startMenuOpened: boolean;
 }
-export default function Desktop({ closeStartMenu, isMobile, isSmallScreen, openWindow, startMenuOpened }:Props) {
+export default function Desktop({ closeStartMenu, mobileFeatures, screenSettingsSet, openWindow, startMenuOpened }: Props) {
   const [selectedShortcut, setSelectedShortcut] = useState('')
   const desktopShortcuts = useMemo(() => {
     const shortcuts = [
@@ -28,24 +28,26 @@ export default function Desktop({ closeStartMenu, isMobile, isSmallScreen, openW
       { icon: github, name: 'GitHub', tooltip: "Opens my GitHub profile in a new tab." },
       { icon: codecademy, name: 'Codecademy', tooltip: "Opens my Codecademy profile in a new tab." },
     ]
-    if (isSmallScreen || isMobile) {
+    if (screenSettingsSet && mobileFeatures) {
       return shortcuts.filter((shortcut) => shortcut.name !== "Recycle Bin");
     }
     return shortcuts;
-  }, [isMobile, isSmallScreen])
+  }, [mobileFeatures])
 
   useEffect(() => {
     const clearShortcut = () => {
       setSelectedShortcut('')
     }
-    if (!isSmallScreen || !isMobile) {
-      openWindow({icon: resumePic, title: "My CV", zIndex: 0})
-    }
     window.addEventListener('click', clearShortcut)
     return () => {
       window.removeEventListener('click', clearShortcut)
     }
-  }, [isMobile, isSmallScreen])
+  }, [])
+  useEffect(() => {
+    if (screenSettingsSet && !mobileFeatures) {
+      openWindow({ icon: resumePic, title: "My CV", zIndex: 0 })
+    }
+  }, [mobileFeatures, screenSettingsSet])
   useEffect(() => {
     if (startMenuOpened) {
       setSelectedShortcut('')
@@ -62,7 +64,7 @@ export default function Desktop({ closeStartMenu, isMobile, isSmallScreen, openW
 
   return (
     <div className={styles.desktop}>
-      {desktopShortcuts.map((desktopShortcut) =>
+      {screenSettingsSet && desktopShortcuts.map((desktopShortcut) =>
         <DesktopShortcut key={desktopShortcut.name} shortcut={desktopShortcut}
           isSelected={selectedShortcut === desktopShortcut.name}
           onClick={handleClick} openWindow={openWindow} />
