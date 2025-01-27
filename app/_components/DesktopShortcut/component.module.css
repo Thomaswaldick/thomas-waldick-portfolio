@@ -2,7 +2,6 @@
   height: 34px;
   width: 34px;
   text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
-  user-select: none;
 }
 .desktopShortcut {
   align-items: center;
@@ -17,7 +16,6 @@
   padding: 1px;
   text-align: center;
   text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.5);
-  user-select: none;
 }
 .selectedShortcut > .desktopIcon {
   filter: brightness(0.7) saturate(1.5);

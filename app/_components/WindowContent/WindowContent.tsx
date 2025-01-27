@@ -15,7 +15,7 @@ export default function WindowContent({ isDragging, windowInfo }: Props) {
     } else {
       return (
         <div className={styles.defaultContainer}>
-          <Image src={warningSymbol} className={styles.warning} alt="Warning Symbol" />
+          <Image src={warningSymbol} className={styles.warning} alt="Warning Symbol" draggable={false} />
           <div className={styles.textContainer}>
             <div>{windowInfo.title} is under development and currently unavailable.</div>
             <div>Please check back at a later time for updates!</div>

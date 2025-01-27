@@ -32,7 +32,7 @@ export default function SystemButton({ buttonInfo, openWindow }:Props) {
   return (
     <TooltipContainer text={buttonInfo.tooltip}>
       <div onClick={handleClick} className={styles.button}>
-        <Image src={buttonInfo.image} className={styles.icon} alt={buttonInfo.text} />
+        <Image src={buttonInfo.image} className={styles.icon} alt={buttonInfo.text} draggable={false} />
         {generateText(buttonInfo.text, buttonInfo.underlineIndex)}
       </div>
     </TooltipContainer>

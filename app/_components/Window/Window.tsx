@@ -55,7 +55,7 @@ export default function Window({ closeWindow, windowInfo }:Props) {
       {/* Title Bar */}
       <div onMouseDown={handleMouseDown} className={styles.titleBar}>
         {/* Icon */}
-        <Image src={windowInfo.icon} alt={windowInfo.title} className={styles.icon} />
+        <Image src={windowInfo.icon} alt={windowInfo.title} className={styles.icon} draggable={false} />
         <div className={styles.titleBarSpacer}>
           {/* Title */}
           <div className={styles.title}>{windowInfo.title}</div>
