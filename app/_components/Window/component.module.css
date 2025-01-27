@@ -58,6 +58,7 @@
 .title {
   color: white;
   font-size: 14px;
+  font-weight: 600;
   text-align: center;
   text-shadow: 1px 1px #0f1089;
   user-select: none;

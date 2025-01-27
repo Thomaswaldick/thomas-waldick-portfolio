@@ -28,7 +28,7 @@ export default function Home() {
       setIsSmallScreen(true)
     }
     const userAgent = navigator.userAgent;
-    if (/Mobi|Android/i.test(userAgent)) {
+    if (/Mobi|Android/i.test(userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2)) {
       setIsMobile(true);
     } else {
       setIsMobile(false);

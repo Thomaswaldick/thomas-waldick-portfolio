@@ -118,6 +118,7 @@
 .username {
   color: #FEFEFE;
   font-size: 18px;
+  font-weight: 500;
   letter-spacing: 0.2px;
   margin-left: 8px;
   text-shadow: 1.5px 1.5px 2px rgba(0, 0, 0, 0.4);
