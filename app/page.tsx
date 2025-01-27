@@ -81,7 +81,7 @@ export default function Home() {
       {activeWindows.map((window) =>
         <Window closeWindow={closeWindow} windowInfo={window} key={window.title} />
       )}
-      <Desktop closeStartMenu={closeStartMenu} isSmallScreen={isSmallScreen} openWindow={openWindow} startMenuOpened={startMenuOpened} />
+      <Desktop closeStartMenu={closeStartMenu} isMobile={isMobile} isSmallScreen={isSmallScreen} openWindow={openWindow} startMenuOpened={startMenuOpened} />
       <StartMenu openWindow={openWindow} startMenuOpened={startMenuOpened} />
       <Taskbar activeWindows={activeWindows} isMobile={isMobile} isSmallScreen={isSmallScreen} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
     </div>
