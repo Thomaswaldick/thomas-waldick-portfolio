@@ -36,7 +36,7 @@ export default function Home() {
   }, [])
   useEffect(() => {
     const toggleStartMenuButton = (e: KeyboardEvent) => {
-      if (!isSmallScreen && (e.code == "OSLeft" || e.code == "OSRight" || e.code == "MetaLeft")) {
+      if (!isSmallScreen && !isMobile && (e.code == "OSLeft" || e.code == "OSRight" || e.code == "MetaLeft")) {
         setStartMenuOpened(prev => !prev)
       }
     }
@@ -63,7 +63,7 @@ export default function Home() {
       window.open(siteLink.url, "_blank")
     } else if ((isSmallScreen || isMobile) && windowInfo.title === "My CV") {
       window.open("/Thomas Waldick CV.pdf", "_blank")
-    } else if (!isSmallScreen) {
+    } else if (!isSmallScreen && !isMobile) {
       const windowAlreadyOpen = activeWindows.find((w) => w.title === windowInfo.title)
       if (!windowAlreadyOpen) {
         setActiveWindows(prevWindows => [{ icon: windowInfo.icon, title: windowInfo.title, zIndex: prevWindows.length + 1 }, ...prevWindows])
@@ -83,7 +83,7 @@ export default function Home() {
       )}
       <Desktop closeStartMenu={closeStartMenu} isSmallScreen={isSmallScreen} openWindow={openWindow} startMenuOpened={startMenuOpened} />
       <StartMenu openWindow={openWindow} startMenuOpened={startMenuOpened} />
-      <Taskbar activeWindows={activeWindows} isSmallScreen={isSmallScreen} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
+      <Taskbar activeWindows={activeWindows} isMobile={isMobile} isSmallScreen={isSmallScreen} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
     </div>
   );
 }
