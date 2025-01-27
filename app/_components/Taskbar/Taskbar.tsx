@@ -87,13 +87,13 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
       <div className={styles.row}>
         {screenSettingsSet && !mobileFeatures ?
           <button className={styles.startButton} aria-label="Start Button" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
-            <Image src={startButtonPic} alt="Start Button Image" height={30} width={100} />
+            <Image src={startButtonPic} alt="Start Button Image" height={30} width={100} draggable={false} />
           </button> : null
         }
         <div className={styles.activeWindows}>
           {activeWindows.map((window) =>
             <div className={styles.window} key={window.title}>
-              <Image src={window.icon} className={styles.windowIcon} alt={window.title} />
+              <Image src={window.icon} className={styles.windowIcon} alt={window.title} draggable={false} />
               <div className={styles.windowText}>{condensedTitle(window.title)}</div>
             </div>
           )}

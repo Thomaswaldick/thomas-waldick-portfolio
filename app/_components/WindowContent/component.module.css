@@ -19,10 +19,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  user-select: none;
 }
 .warning {
   height: 50px;
   width: 50px;
-  user-select: none;
 }

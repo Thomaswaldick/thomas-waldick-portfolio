@@ -7,6 +7,5 @@
   padding: 4px;
   position: fixed;
   max-width: 450px;
-  user-select: none;
   z-index: 10;
 }

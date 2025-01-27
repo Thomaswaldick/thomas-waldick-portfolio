@@ -22,7 +22,6 @@
   flex-direction: row;
   gap: 5px;
   padding: 2px;
-  user-select: none;
 }
 .item:hover {
   background-color: #316AC5;

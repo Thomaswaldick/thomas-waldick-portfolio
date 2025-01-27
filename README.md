@@ -1,4 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Thomas Waldick's Portfolio Site
+
+This is my professional portfolio showcasing my skills and experience as a Front-End Software Engineer. Built using Next.js, it highlights my ability to create modern and responsive web applications. Based on the Windows XP operating system.
+
+## Live Demo
+
+**Live Demo:** [https://thomaswaldick.com](https://thomaswaldick.com)
+
+## Tech Stack
+**Framework:** Next.js
+
+**Styling:** CSS Modules
+
+**Hosting:** Vercel
+
+**Other:** Typescript
+
+## Future Improvements
+- Minimize/maximize windows
+- Animations for windows and tooltips
+- Window functionality on mobile
+- Log in and shutdown button functionality
+- Support for different programs/folders
+
+## Contact Information
+**Author:** Thomas Waldick
+
+**LinkedIn:** [linkedin.com/in/thomas-waldick/](https://www.linkedin.com/in/thomas-waldick/)
+
+**Email:** [contact@thomaswaldick.com](mailto:contact@thomaswaldick.com)
 
 ## Getting Started
 
@@ -21,6 +50,8 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 To learn more about Next.js, take a look at the following resources:
 
