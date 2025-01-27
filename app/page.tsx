@@ -19,24 +19,28 @@ export default function Home() {
     { title: 'About This Site', url: 'https://github.com/Thomaswaldick/thomas-waldick-portfolio' },
   ]
   const [activeWindows, setActiveWindows] = useState<WindowInfo[]>([]);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
+  // const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [mobileFeatures, setMobileFeatures] = useState(false);
+  const [screenSettingsSet, setScreenSettings] = useState(false);
   const [startMenuOpened, setStartMenuOpened] = useState(false);
 
   useEffect(() => {
+    let isSmallScreen = false
+    let isMobile = false
     if (window.screen.width < 800 || window.screen.height < 600) {
-      setIsSmallScreen(true)
+      isSmallScreen = true
     }
     const userAgent = navigator.userAgent;
     if (/Mobi|Android/i.test(userAgent) || (navigator.maxTouchPoints && navigator.maxTouchPoints > 2)) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
+      isMobile = true
+    } 
+    setMobileFeatures(isSmallScreen || isMobile)
+    setScreenSettings(true)
   }, [])
   useEffect(() => {
     const toggleStartMenuButton = (e: KeyboardEvent) => {
-      if (!isSmallScreen && !isMobile && (e.code == "OSLeft" || e.code == "OSRight" || e.code == "MetaLeft")) {
+      if (!mobileFeatures && (e.code == "OSLeft" || e.code == "OSRight" || e.code == "MetaLeft")) {
         setStartMenuOpened(prev => !prev)
       }
     }
@@ -46,7 +50,7 @@ export default function Home() {
       window.removeEventListener('click', closeStartMenu)
       window.removeEventListener('keydown', toggleStartMenuButton)
     }
-  }, [isSmallScreen])
+  }, [mobileFeatures])
 
   const closeStartMenu = () => {
     setStartMenuOpened(false)
@@ -61,9 +65,9 @@ export default function Home() {
     const siteLink = siteLinks.find((site) => site.title === windowInfo.title)
     if (siteLink) {
       window.open(siteLink.url, "_blank")
-    } else if ((isSmallScreen || isMobile) && windowInfo.title === "My CV") {
+    } else if (mobileFeatures && windowInfo.title === "My CV") {
       window.open("/Thomas Waldick CV.pdf", "_blank")
-    } else if (!isSmallScreen && !isMobile) {
+    } else if (!mobileFeatures) {
       const windowAlreadyOpen = activeWindows.find((w) => w.title === windowInfo.title)
       if (!windowAlreadyOpen) {
         setActiveWindows(prevWindows => [{ icon: windowInfo.icon, title: windowInfo.title, zIndex: prevWindows.length + 1 }, ...prevWindows])
@@ -81,9 +85,9 @@ export default function Home() {
       {activeWindows.map((window) =>
         <Window closeWindow={closeWindow} windowInfo={window} key={window.title} />
       )}
-      <Desktop closeStartMenu={closeStartMenu} isMobile={isMobile} isSmallScreen={isSmallScreen} openWindow={openWindow} startMenuOpened={startMenuOpened} />
+      <Desktop closeStartMenu={closeStartMenu} openWindow={openWindow} mobileFeatures={mobileFeatures} screenSettingsSet={screenSettingsSet} startMenuOpened={startMenuOpened} />
       <StartMenu openWindow={openWindow} startMenuOpened={startMenuOpened} />
-      <Taskbar activeWindows={activeWindows} isMobile={isMobile} isSmallScreen={isSmallScreen} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
+      <Taskbar activeWindows={activeWindows} mobileFeatures={mobileFeatures} screenSettingsSet={screenSettingsSet} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
     </div>
   );
 }
