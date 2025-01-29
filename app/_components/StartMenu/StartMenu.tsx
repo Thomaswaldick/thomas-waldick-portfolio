@@ -1,9 +1,6 @@
 import styles from "./component.module.css";
 import Image from "next/image";
-// Components
-import SystemButton from "../SystemButton/SystemButton";
-import StartMenuItem from "../StartMenuItem/StartMenuItem";
-// Assets
+// ---------- Assets ----------
 import myProfilePic from "@/public/myProfilePic.png";
 import logOffPic from "@/public/logOff.ico";
 import powerPic from "@/public/power.ico";
@@ -24,9 +21,11 @@ import resumePic from "@/public/resume.ico";
 import linkedIn from "@/public/linkedIn.png";
 import github from "@/public/github.png";
 import codecademy from "@/public/codecademy.ico";
-
+// ---------- Components ----------
+import SystemButton from "../SystemButton/SystemButton";
+import StartMenuItem from "../StartMenuItem/StartMenuItem";
+// ---------- Types ----------
 import { WindowInfo } from "@/app/types/WindowInfo";
-
 interface Props {
   openWindow: (windowInfo: WindowInfo) => void;
   startMenuOpened: boolean;
@@ -50,11 +49,11 @@ export default function StartMenu({ startMenuOpened, openWindow }: Props) {
     }
   ]
   const recentPrograms = [
-    { bold: false, image: resumePic, subtext: '', text: 'My CV', tooltip: "PDF of Thomas Waldick's CV" },
-    { bold: false, image: helpAndSupport, subtext: '', text: 'About This Site', tooltip: "Details about this portfolio website." },
-    { bold: false, image: linkedIn, text: 'LinkedIn', subtext: '', tooltip: "Opens my LinkedIn profile in a new tab." },
-    { bold: false, image: github, subtext: '', text: 'GitHub', tooltip: "Opens my GitHub profile in a new tab." },
     { bold: false, image: codecademy, subtext: '', text: 'Codecademy', tooltip: "Opens my Codecademy profile in a new tab." },
+    { bold: false, image: github, subtext: '', text: 'GitHub', tooltip: "Opens my GitHub profile in a new tab." },
+    { bold: false, image: linkedIn, text: 'LinkedIn', subtext: '', tooltip: "Opens my LinkedIn profile in a new tab." },
+    { bold: false, image: helpAndSupport, subtext: '', text: 'About This Site', tooltip: "Details about this portfolio website." },
+    { bold: false, image: resumePic, subtext: '', text: 'My CV', tooltip: "PDF of Thomas Waldick's CV" },
   ]
   const defaultProgramsTop = [
     {
@@ -153,9 +152,12 @@ export default function StartMenu({ startMenuOpened, openWindow }: Props) {
       underlineIndex: 1
     }
   ]
+  // ---------- Functions ----------
+  // Runs when start menu is clicked and stops propagation to prevent it being closed
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   }
+  // ---------- Return ----------
   return (
     startMenuOpened ? <div className={styles.startMenu} onClick={handleClick}>
       {/* Profile picture and username row */}

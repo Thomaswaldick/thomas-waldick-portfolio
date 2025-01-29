@@ -1,11 +1,12 @@
 import Image from "next/image";
 import styles from "./component.module.css";
+import { useEffect, useState } from "react";
+// ---------- Assets ----------
 import startButtonDefaultPic from "@/public/StartButton.png"
 import startButtonHoverPic from "@/public/StartButton_Hover.png"
 import startButtonClickPic from "@/public/StartButton_Click.png"
-import { useEffect, useState } from "react";
+// ---------- Types ----------
 import { WindowInfo } from "@/app/types/WindowInfo";
-
 interface Props {
   activeWindows: WindowInfo[];
   mobileFeatures: boolean;
@@ -13,19 +14,23 @@ interface Props {
   startMenuOpened: boolean;
   toggleStartMenu: () => void;
 }
+
 export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsSet, startMenuOpened, toggleStartMenu }: Props) {
+  // ---------- States ----------
   const [startButtonPic, setStartButtonPic] = useState(startButtonDefaultPic.src);
   const [timeString, setTimeString] = useState('');
+  // ---------- Effects ----------
+  // Creates an interval that runs every second to update the time
   useEffect(() => {
     updateTime()
     const intervalId = setInterval(() => {
       updateTime()
     }, 1000)
-
     return () => {
       clearInterval(intervalId)
     }
   }, [])
+  // Updates the start button picture state based on whether the start menu is opened or not
   useEffect(() => {
     if (!startMenuOpened && startButtonPic !== startButtonDefaultPic.src && startButtonPic !== startButtonHoverPic.src) {
       setStartButtonPic(startButtonDefaultPic.src)
@@ -33,7 +38,8 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
       setStartButtonPic(startButtonClickPic.src)
     }
   }, [startMenuOpened, startButtonPic])
-
+  // ---------- Functions ----------
+  // Takes in a string title, and returns a shortened version if longer then 15 characters
   const condensedTitle = (title: string) => {
     if (title.length < 18) {
       return title
@@ -41,6 +47,7 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
       return title.slice(0, 15) + '...'
     }
   }
+  // When start menu button is clicked, updates button pic and toggles start menu
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     if (!startMenuOpened) {
@@ -50,16 +57,19 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
     }
     toggleStartMenu()
   }
+  // Changes start menu button to hovered if not opened
   const handleMouseEnter = () => {
     if (!startMenuOpened) {
       setStartButtonPic(startButtonHoverPic.src);
     }
   }
+  // Changes start menu button to default if not opened
   const handleMouseLeave = () => {
     if (!startMenuOpened) {
       setStartButtonPic(startButtonDefaultPic.src);
     }
   }
+  // Updates the time string state based on current time
   const updateTime = () => {
     const now = new Date();
     const hour = now.getHours();
@@ -82,14 +92,17 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
     }
     setTimeString(hourString + ":" + minuteString + " " + suffix);
   }
+  // ---------- Return ----------
   return (
     <nav className={styles.taskBar} aria-label="Task Bar">
       <div className={styles.row}>
+        {/* Start Menu Button */}
         {screenSettingsSet && !mobileFeatures ?
           <button className={styles.startButton} aria-label="Start Button" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onClick={handleClick}>
             <Image src={startButtonPic} alt="Start Button Image" height={30} width={100} draggable={false} />
           </button> : null
         }
+        {/* Active Windows */}
         <div className={styles.activeWindows}>
           {activeWindows.map((window) =>
             <div className={styles.window} key={window.title}>
@@ -99,6 +112,7 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
           )}
         </div>
       </div>
+      {/* System Tray */}
       <div className={styles.systemTray}>
         <div className={styles.clock}>{timeString}</div>
       </div>

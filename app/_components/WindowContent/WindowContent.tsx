@@ -1,14 +1,17 @@
 import Image from "next/image";
 import styles from "./component.module.css";
-
+// ---------- Assets ----------
 import warningSymbol from "@/public/warning.png";
+// ---------- Types ----------
 import { WindowInfo } from "@/app/types/WindowInfo";
-
 interface Props {
   isDragging: boolean;
   windowInfo: WindowInfo;
 }
+
 export default function WindowContent({ isDragging, windowInfo }: Props) {
+  // ---------- Functions ----------
+  // Displays content based on whether it's CV or not
   const getContent = () => {
     if (windowInfo.title === 'My CV') {
       return (<iframe src="/Thomas Waldick CV.pdf" className={styles.cv} style={isDragging ? { pointerEvents: 'none' } : {}}></iframe>)
@@ -23,6 +26,7 @@ export default function WindowContent({ isDragging, windowInfo }: Props) {
         </div>)
     }
   }
+  // ---------- Return ----------
   return (
     <div className={styles.container}>{getContent()}</div>
   )
