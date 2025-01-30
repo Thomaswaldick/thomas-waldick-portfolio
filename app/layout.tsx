@@ -11,7 +11,7 @@ const firaSans = Fira_Sans({
 
 export const metadata: Metadata = {
   title: "Thomas Waldick's Portfolio",
-  description: "CV and other info for Thomas Waldick",
+  description: "Thomas Waldick's professional portfolio site containing CV and other information.",
 };
 
 export default function RootLayout({
