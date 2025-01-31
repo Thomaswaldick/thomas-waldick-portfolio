@@ -159,12 +159,12 @@ export default function StartMenu({ startMenuOpened, openWindow }: Props) {
   }
   // ---------- Return ----------
   return (
-    startMenuOpened ? <div className={styles.startMenu} onClick={handleClick}>
+    startMenuOpened ? <section className={styles.startMenu} onClick={handleClick}>
       {/* Profile picture and username row */}
-      <div className={styles.avatarRow}>
+      <header className={styles.avatarRow}>
         <Image src={myProfilePic} className={styles.avatar} alt="Profile Picture" draggable={false} />
         <div className={styles.username}>Thomas Waldick</div>
-      </div>
+      </header>
       <div className={styles.container}>
         <div className={styles.orangeDivider}></div>
         <div className={styles.innerContainer}>
@@ -192,10 +192,10 @@ export default function StartMenu({ startMenuOpened, openWindow }: Props) {
             {defaultProgramsBottom.map((program) => <StartMenuItem bold={program.bold} isFavorite={false} itemInfo={program} key={program.text} openWindow={openWindow} />)}
           </div>
         </div>
-        <div className={styles.systemButtonContainer}>
+        <footer className={styles.systemButtonContainer}>
           {systemButtons.map((button) => <SystemButton buttonInfo={button} key={button.text} openWindow={openWindow} />)}
-        </div>
+        </footer>
       </div>
-    </div> : null
+    </section> : null
   );
 }

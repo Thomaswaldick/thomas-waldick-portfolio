@@ -7,6 +7,6 @@ interface Props {
 export default function Tooltip({styleInfo, text}:Props) {
   // ---------- Return ----------
   return (
-    <div className={styles.container} style={styleInfo}>{text}</div>
+    <aside className={styles.container} style={styleInfo}>{text}</aside>
   )
 }
