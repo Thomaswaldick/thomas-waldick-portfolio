@@ -38,11 +38,9 @@ export default function StartMenuItem({ bold, isFavorite, itemInfo, openWindow }
         </div>
       ) : (
         // Normal Start Menu Item
-        <div>
-          <div className={styles.item} onClick={handleClick}>
-            <Image src={itemInfo.image} className={styles.icon} alt={itemInfo.text} draggable={false} />
-            <div className={`${styles.text} ${styles.blue} ${bold ? styles.bold : ''}`}>{itemInfo.text}</div>
-          </div>
+        <div className={styles.item} onClick={handleClick}>
+          <Image src={itemInfo.image} className={styles.icon} alt={itemInfo.text} draggable={false} />
+          <div className={`${styles.text} ${styles.blue} ${bold ? styles.bold : ''}`}>{itemInfo.text}</div>
         </div>
       )}
     </TooltipContainer>

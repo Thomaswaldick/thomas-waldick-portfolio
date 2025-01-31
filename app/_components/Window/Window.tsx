@@ -54,7 +54,7 @@ export default function Window({ closeWindow, windowInfo }:Props) {
   };
   // ---------- Return ----------
   return (
-    <div className={styles.window} style={{
+    <section className={styles.window} style={{
       height: `${windowInfo.title === 'My CV' ? 600 : 200}px`,
       left: `${position.x}px`,
       top: `${position.y}px`,
@@ -62,7 +62,7 @@ export default function Window({ closeWindow, windowInfo }:Props) {
       zIndex: windowInfo.zIndex
     }}>
       {/* Title Bar */}
-      <div onMouseDown={handleMouseDown} className={styles.titleBar}>
+      <header onMouseDown={handleMouseDown} className={styles.titleBar}>
         {/* Icon */}
         <Image src={windowInfo.icon} alt={windowInfo.title} className={styles.icon} draggable={false} />
         <div className={styles.titleBarSpacer}>
@@ -75,11 +75,11 @@ export default function Window({ closeWindow, windowInfo }:Props) {
             <button onClick={handleCloseClick} className={styles.close}></button>
           </div>
         </div>
-      </div>
+      </header>
       {/* Content */}
       <div className={styles.content}>
         <WindowContent isDragging={isDragging} windowInfo={windowInfo} />
       </div>
-    </div>
+    </section>
   )
 }

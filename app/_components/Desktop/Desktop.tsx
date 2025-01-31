@@ -71,12 +71,12 @@ export default function Desktop({ closeStartMenu, mobileFeatures, screenSettings
   }
   // ---------- Return ----------
   return (
-    <div className={styles.desktop}>
+    <main className={styles.desktop}>
       {screenSettingsSet && desktopShortcuts.map((desktopShortcut) =>
         <DesktopShortcut key={desktopShortcut.name} shortcut={desktopShortcut}
           isSelected={selectedShortcut === desktopShortcut.name}
           onClick={handleClick} openWindow={openWindow} />
       )}
-    </div>
+    </main>
   );
 }
