@@ -29,18 +29,18 @@ export default function StartMenuItem({ bold, isFavorite, itemInfo, openWindow }
     <TooltipContainer text={itemInfo.tooltip}>
       {isFavorite ? (
         // Favorite Start Menu Item
-        <div className={styles.item} onClick={handleClick}>
-          <Image src={itemInfo.image} className={styles.favoriteIcon} alt={itemInfo.text} draggable={false} />
-          <div className={styles.favoriteContainer}>
-            <div className={`${styles.text} ${styles.bold}`}>{itemInfo.text}</div>
-            <div className={styles.subtext}>{itemInfo.subtext}</div>
+        <div className={styles.item} onClick={handleClick} aria-label="Favorited start menu program">
+          <Image src={itemInfo.image} className={styles.favoriteIcon} alt={`${itemInfo.text} program icon`} draggable={false} aria-label="Program icon" />
+          <div className={styles.favoriteContainer} aria-label="Text container">
+            <div className={`${styles.text} ${styles.bold}`} aria-label={`${itemInfo.text} text`}>{itemInfo.text}</div>
+            <div className={styles.subtext} aria-label={`${itemInfo.text} subtext`}>{itemInfo.subtext}</div>
           </div>
         </div>
       ) : (
         // Normal Start Menu Item
-        <div className={styles.item} onClick={handleClick}>
-          <Image src={itemInfo.image} className={styles.icon} alt={itemInfo.text} draggable={false} />
-          <div className={`${styles.text} ${styles.blue} ${bold ? styles.bold : ''}`}>{itemInfo.text}</div>
+        <div className={styles.item} onClick={handleClick} aria-label="Start menu program">
+          <Image src={itemInfo.image} className={styles.icon} alt={`${itemInfo.text} program icon`} draggable={false} aria-label="Program icon" />
+          <div className={`${styles.text} ${styles.blue} ${bold ? styles.bold : ''}`} aria-label={`${itemInfo.text} text`}>{itemInfo.text}</div>
         </div>
       )}
     </TooltipContainer>

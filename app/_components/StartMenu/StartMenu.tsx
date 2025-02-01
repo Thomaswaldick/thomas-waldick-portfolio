@@ -159,40 +159,40 @@ export default function StartMenu({ startMenuOpened, openWindow }: Props) {
   }
   // ---------- Return ----------
   return (
-    startMenuOpened ? <section className={styles.startMenu} onClick={handleClick}>
+    startMenuOpened ? <section className={styles.startMenu} onClick={handleClick} aria-label="Start Menu">
       {/* Profile picture and username row */}
-      <header className={styles.avatarRow}>
-        <Image src={myProfilePic} className={styles.avatar} alt="Profile Picture" draggable={false} />
-        <div className={styles.username}>Thomas Waldick</div>
+      <header className={styles.avatarRow} aria-label="Picture and username header">
+        <Image src={myProfilePic} className={styles.avatar} alt="Profile Picture of me" draggable={false}  />
+        <div className={styles.username} aria-label="Username text">Thomas Waldick</div>
       </header>
-      <div className={styles.container}>
-        <div className={styles.orangeDivider}></div>
-        <div className={styles.innerContainer}>
-          <div className={styles.leftContainer}>
+      <div className={styles.container} aria-label="Container with start menu items, dividers, and system buttons">
+        <div className={styles.orangeDivider} aria-label="Orange divider"></div>
+        <div className={styles.innerContainer} aria-label="Inner container for left and right item containers">
+          <div className={styles.leftContainer} aria-label="Left container for favorite programs and recent program items">
             {/* Favorite Programs */}
             {favoritePrograms.map((program) => <StartMenuItem bold={false} isFavorite={true} itemInfo={program} key={program.text} openWindow={openWindow} />)}
-            <div className={styles.dividerContainer}>
-              <div className={styles.leftDivider}></div>
+            <div className={styles.dividerContainer} aria-label="Container for menu divider">
+              <div className={styles.leftDivider} aria-label="Menu divider"></div>
             </div>
             {/* Recent Programs */}
             {recentPrograms.map((program) => <StartMenuItem bold={program.bold} isFavorite={false} itemInfo={program} key={program.text} openWindow={openWindow} />)}
           </div>
-          <div className={styles.rightContainer}>
+          <div className={styles.rightContainer} aria-label="Right container with default program items">
             {/* Default Programs Top */}
             {defaultProgramsTop.map((program) => <StartMenuItem bold={program.bold} isFavorite={false} itemInfo={program} key={program.text} openWindow={openWindow} />)}
-            <div className={styles.dividerContainer}>
-              <div className={styles.rightDivider}></div>
+            <div className={styles.dividerContainer} aria-label="Container for menu divider">
+              <div className={styles.rightDivider} aria-label="Menu divider"></div>
             </div>
             {/* Default Programs Middle */}
             {defaultProgramsMiddle.map((program) => <StartMenuItem bold={program.bold} isFavorite={false} itemInfo={program} key={program.text} openWindow={openWindow} />)}
-            <div className={styles.dividerContainer}>
-              <div className={styles.rightDivider}></div>
+            <div className={styles.dividerContainer} aria-label="Container for menu divider">
+              <div className={styles.rightDivider} aria-label="Menu divider"></div>
             </div>
             {/* Default Programs Bottom */}
             {defaultProgramsBottom.map((program) => <StartMenuItem bold={program.bold} isFavorite={false} itemInfo={program} key={program.text} openWindow={openWindow} />)}
           </div>
         </div>
-        <footer className={styles.systemButtonContainer}>
+        <footer className={styles.systemButtonContainer} aria-label="Container for system buttons">
           {systemButtons.map((button) => <SystemButton buttonInfo={button} key={button.text} openWindow={openWindow} />)}
         </footer>
       </div>
