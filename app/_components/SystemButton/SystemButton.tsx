@@ -24,7 +24,7 @@ export default function SystemButton({ buttonInfo, openWindow }:Props) {
       return text
     } else {
       return (
-        <div className={styles.text}>
+        <div className={styles.text} aria-label="System button text">
           {text.slice(0, characterIndex)}<span className={styles.underline}>{text.slice(characterIndex, characterIndex + 1)}</span>{text.slice(characterIndex + 1)}
         </div>)
     }
@@ -36,8 +36,8 @@ export default function SystemButton({ buttonInfo, openWindow }:Props) {
   // ---------- Return ----------
   return (
     <TooltipContainer text={buttonInfo.tooltip}>
-      <div onClick={handleClick} className={styles.button}>
-        <Image src={buttonInfo.image} className={styles.icon} alt={buttonInfo.text} draggable={false} />
+      <div onClick={handleClick} className={styles.button} aria-label="System button container">
+        <Image src={buttonInfo.image} className={styles.icon} alt={`${buttonInfo.text} icon`} draggable={false} aria-label="System button icon" />
         {generateText(buttonInfo.text, buttonInfo.underlineIndex)}
       </div>
     </TooltipContainer>

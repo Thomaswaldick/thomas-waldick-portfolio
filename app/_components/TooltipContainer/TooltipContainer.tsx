@@ -53,7 +53,7 @@ export default function TooltipContainer({children, text}:Props) {
   }
   // ---------- Return ----------
   return (
-    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={styles.container}>
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={styles.container} aria-label="Tooltip container">
       {children}
       {tooltipVisible ? <Tooltip text={text} styleInfo={styleInfo} /> : null}
     </div>

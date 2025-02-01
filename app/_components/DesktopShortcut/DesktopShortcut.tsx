@@ -30,9 +30,9 @@ export default function DesktopShortcut({ isSelected, onClick, openWindow, short
   // ---------- Return ----------
   return (
     <TooltipContainer text={shortcut.tooltip}>
-      <div onClick={handleClick} className={isSelected ? [styles.desktopShortcut, styles.selectedShortcut].join(' ') : styles.desktopShortcut}>
-        <Image src={shortcut.icon} alt={shortcut.name} className={styles.desktopIcon} draggable={false} />
-        <div className={isSelected ? [styles.desktopText, styles.selectedText].join(' ') : styles.desktopText}>{shortcut.name}</div>
+      <div onClick={handleClick} className={isSelected ? [styles.desktopShortcut, styles.selectedShortcut].join(' ') : styles.desktopShortcut} aria-label={`${shortcut.name} desktop shortcut`}>
+        <Image src={shortcut.icon} alt={`${shortcut.name} shortcut icon`} className={styles.desktopIcon} draggable={false} />
+        <div className={isSelected ? [styles.desktopText, styles.selectedText].join(' ') : styles.desktopText} aria-label={`${shortcut.name} shortcut text`}>{shortcut.name}</div>
       </div>
     </TooltipContainer>
   );

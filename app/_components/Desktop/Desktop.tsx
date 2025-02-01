@@ -71,7 +71,7 @@ export default function Desktop({ closeStartMenu, mobileFeatures, screenSettings
   }
   // ---------- Return ----------
   return (
-    <main className={styles.desktop}>
+    <main className={styles.desktop} aria-label="Desktop">
       {screenSettingsSet && desktopShortcuts.map((desktopShortcut) =>
         <DesktopShortcut key={desktopShortcut.name} shortcut={desktopShortcut}
           isSelected={selectedShortcut === desktopShortcut.name}

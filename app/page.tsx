@@ -86,7 +86,7 @@ export default function Home() {
   return (
     <div className={styles.page} style={{
       backgroundImage: `url(${desktopPic.src})`,
-    }}>
+    }} aria-label="Screen">
       {activeWindows.map((window) =>
         <Window closeWindow={closeWindow} windowInfo={window} key={window.title} />
       )}

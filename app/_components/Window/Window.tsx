@@ -60,24 +60,24 @@ export default function Window({ closeWindow, windowInfo }:Props) {
       top: `${position.y}px`,
       width: `${windowInfo.title === 'My CV' ? 800 : 400}px`,
       zIndex: windowInfo.zIndex
-    }}>
+    }} aria-label={`${windowInfo.title} window`}>
       {/* Title Bar */}
-      <header onMouseDown={handleMouseDown} className={styles.titleBar}>
+      <header onMouseDown={handleMouseDown} className={styles.titleBar} aria-label="Title bar">
         {/* Icon */}
-        <Image src={windowInfo.icon} alt={windowInfo.title} className={styles.icon} draggable={false} />
-        <div className={styles.titleBarSpacer}>
+        <Image src={windowInfo.icon} alt={`${windowInfo.title} icon`} className={styles.icon} draggable={false} aria-label="Window icon" />
+        <div className={styles.titleBarSpacer} aria-label="Title bar container">
           {/* Title */}
-          <div className={styles.title}>{windowInfo.title}</div>
+          <div className={styles.title} aria-label="Window Title">{windowInfo.title}</div>
           {/* Buttons */}
-          <div onMouseDown={handleMouseDownButton} className={styles.buttons}>
-            <button className={styles.minimize}></button>
-            <button className={styles.maximize}></button>
-            <button onClick={handleCloseClick} className={styles.close}></button>
+          <div onMouseDown={handleMouseDownButton} className={styles.buttons} aria-label="Window buttons">
+            <button className={styles.minimize} aria-label="Maximize button"></button>
+            <button className={styles.maximize} aria-label="Minimize button"></button>
+            <button onClick={handleCloseClick} className={styles.close} aria-label="Close button"></button>
           </div>
         </div>
       </header>
       {/* Content */}
-      <div className={styles.content}>
+      <div className={styles.content} aria-label="Window content">
         <WindowContent isDragging={isDragging} windowInfo={windowInfo} />
       </div>
     </section>

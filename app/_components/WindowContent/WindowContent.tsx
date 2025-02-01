@@ -14,12 +14,12 @@ export default function WindowContent({ isDragging, windowInfo }: Props) {
   // Displays content based on whether it's CV or not
   const getContent = () => {
     if (windowInfo.title === 'My CV') {
-      return (<iframe src="/Thomas Waldick CV.pdf" className={styles.cv} style={isDragging ? { pointerEvents: 'none' } : {}}></iframe>)
+      return (<iframe src="/Thomas Waldick CV.pdf" className={styles.cv} style={isDragging ? { pointerEvents: 'none' } : {}} aria-label="PDF of my CV"></iframe>)
     } else {
       return (
-        <div className={styles.defaultContainer}>
-          <Image src={warningSymbol} className={styles.warning} alt="Warning Symbol" draggable={false} />
-          <div className={styles.textContainer}>
+        <div className={styles.defaultContainer} aria-label="Content container">
+          <Image src={warningSymbol} className={styles.warning} alt="Warning Symbol" draggable={false} aria-label="Warning icon" />
+          <div className={styles.textContainer} aria-label="Text container">
             <div>{windowInfo.title} is under development and currently unavailable.</div>
             <div>Please check back at a later time for updates!</div>
           </div>
