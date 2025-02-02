@@ -38,6 +38,7 @@ export default function Window({ closeWindow, windowInfo }:Props) {
   }
   // When mouse is clicked, set dragging state and offset state
   const handleMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.button !== 0) return
     setIsDragging(true);
     setOffset({
       x: e.clientX - position.x,

@@ -8,7 +8,7 @@ interface Props {
   text: string;
 }
 
-export default function TooltipContainer({children, text}:Props) {
+export default function TooltipContainer({ children, text }: Props) {
   const openTimeoutId = useRef<NodeJS.Timeout | null>(null);
   const closeTimeoutId = useRef<NodeJS.Timeout | null>(null);
   // ---------- States ----------
@@ -18,11 +18,13 @@ export default function TooltipContainer({children, text}:Props) {
   // Closes tooltip and clears and current timeouts
   const closeTooltip = () => {
     setTooltipVisible(false)
-    setStyleInfo({})
+    setTimeout(() => {
+      setStyleInfo({})
+    }, 300)
     if (closeTimeoutId.current) {
       clearTimeout(closeTimeoutId.current);
+      closeTimeoutId.current = null
     }
-    closeTimeoutId.current = null
     if (openTimeoutId.current) {
       clearTimeout(openTimeoutId.current);
       openTimeoutId.current = null
@@ -32,7 +34,7 @@ export default function TooltipContainer({children, text}:Props) {
   const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
     openTimeoutId.current = setTimeout(() => {
       openTooltip(e);
-    }, 1500);
+    }, 1000);
   }
   // When a mouse leaves, closes the tooltip
   const handleMouseLeave = () => {
@@ -43,8 +45,8 @@ export default function TooltipContainer({children, text}:Props) {
     const currentX = e.pageX;
     const currentY = e.pageY;
     setStyleInfo({
-      left: `${currentX+10}px`,
-      top: `${currentY-10}px`,
+      left: `${currentX + 10}px`,
+      top: `${currentY - 10}px`,
     })
     setTooltipVisible(true)
     closeTimeoutId.current = setTimeout(() => {
@@ -55,7 +57,10 @@ export default function TooltipContainer({children, text}:Props) {
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={styles.container} aria-label="Tooltip container">
       {children}
-      {tooltipVisible ? <Tooltip text={text} styleInfo={styleInfo} /> : null}
+      {/* {tooltipVisible ? <Tooltip text={text} styleInfo={styleInfo} /> : null} */}
+      <div className={`${styles.tooltip} ${tooltipVisible ? styles.tooltipShow : ''}`}>
+        <Tooltip text={text} styleInfo={styleInfo} />
+      </div>
     </div>
   )
 }
