@@ -1,14 +1,20 @@
 "use client";
 import styles from "./page.module.css";
 import { useEffect, useState } from "react";
-// ---------- Assets ----------
+// ------------------------------------------------------------
+// Assets
+// ------------------------------------------------------------
 import desktopPic from "@/public/desktop.jpg";
-// ---------- Components ----------
+// ------------------------------------------------------------
+// Components
+// ------------------------------------------------------------
 import Taskbar from "@/app/_components/Taskbar/Taskbar";
 import Desktop from "./_components/Desktop/Desktop";
 import StartMenu from "./_components/StartMenu/StartMenu";
 import Window from "./_components/Window/Window";
-// ---------- Types ----------
+// ------------------------------------------------------------
+// Types
+// ------------------------------------------------------------
 import { WindowInfo } from "./types/WindowInfo";
 
 export default function Home() {
@@ -18,12 +24,16 @@ export default function Home() {
     { title: 'Codecademy', url: 'https://www.codecademy.com/profiles/with_thomas' },
     { title: 'About This Site', url: 'https://github.com/Thomaswaldick/thomas-waldick-portfolio' },
   ]
-  // ---------- States ----------
+  // ------------------------------------------------------------
+  // States
+  // ------------------------------------------------------------
   const [activeWindows, setActiveWindows] = useState<WindowInfo[]>([]);
   const [mobileFeatures, setMobileFeatures] = useState(false);
   const [screenSettingsSet, setScreenSettings] = useState(false);
   const [startMenuOpened, setStartMenuOpened] = useState(false);
-  // ---------- Effects ----------
+  // ------------------------------------------------------------
+  // Effects
+  // ------------------------------------------------------------
   // Runs on initial load, sets variable for mobile features if on a mobile device or has small window size
   useEffect(() => {
     let isSmallScreen = false
@@ -38,6 +48,7 @@ export default function Home() {
     setMobileFeatures(isSmallScreen || isMobile)
     setScreenSettings(true)
   }, [])
+  // ------------------------------
   // Starts event listeners to open start menu on keypress and close on mouse click
   useEffect(() => {
     const toggleStartMenuButton = (e: KeyboardEvent) => {
@@ -52,15 +63,19 @@ export default function Home() {
       window.removeEventListener('keydown', toggleStartMenuButton)
     }
   }, [mobileFeatures])
-  // ---------- Functions ----------
+  // ------------------------------------------------------------
+  // Functions
+  // ------------------------------------------------------------
   // Closes star menu by updating state
   const closeStartMenu = () => {
     setStartMenuOpened(false)
   }
+  // ------------------------------
   // Closes window passed in by filtering out window based on title
   const closeWindow = (windowInfo: WindowInfo) => {
     setActiveWindows(prevWindows => prevWindows.filter((w) => w.title !== windowInfo.title))
   }
+  // ------------------------------
   // Opens window by first closing start menu if opened, then opens CV in new tab if on mobile, or opens window if not on mobile
   const openWindow = (windowInfo: WindowInfo) => {
     if (startMenuOpened) {
@@ -78,11 +93,14 @@ export default function Home() {
       }
     }
   }
+  // ------------------------------
   // Toggles the start menu opened state
   const toggleStartMenu = () => {
     setStartMenuOpened(prev => !prev)
   }
-  // ---------- Return ----------
+  // ------------------------------------------------------------
+  // Render
+  // ------------------------------------------------------------
   return (
     <div className={styles.page} style={{
       backgroundImage: `url(${desktopPic.src})`,

@@ -1,9 +1,13 @@
 import styles from "./component.module.css";
 import Image from "next/image";
 import { StaticImageData } from "next/image"
-// ---------- Components ----------
+// ------------------------------------------------------------
+// Components
+// ------------------------------------------------------------
 import TooltipContainer from "../TooltipContainer/TooltipContainer";
-// ---------- Types ----------
+// ------------------------------------------------------------
+// Types
+// ------------------------------------------------------------
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface ItemInfo {
   image: StaticImageData;
@@ -19,12 +23,16 @@ interface Props {
 }
 
 export default function StartMenuItem({ bold, isFavorite, itemInfo, openWindow }: Props) {
-  // ---------- Functions ----------
+  // ------------------------------------------------------------
+  // Functions
+  // ------------------------------------------------------------
   // Opens a window based on the start menu item info
   const handleClick = () => {
     openWindow({ icon: itemInfo.image, title: itemInfo.text, zIndex: 0 })
   }
-  // ---------- Return ----------
+  // ------------------------------------------------------------
+  // Render
+  // ------------------------------------------------------------
   return (
     <TooltipContainer text={itemInfo.tooltip}>
       {isFavorite ? (
