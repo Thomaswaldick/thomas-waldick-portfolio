@@ -1,11 +1,15 @@
 import Image from "next/image";
 import styles from "./component.module.css";
 import { useEffect, useState } from "react";
-// ---------- Assets ----------
+// ------------------------------------------------------------
+// Assets
+// ------------------------------------------------------------
 import startButtonDefaultPic from "@/public/StartButton.png"
 import startButtonHoverPic from "@/public/StartButton_Hover.png"
 import startButtonClickPic from "@/public/StartButton_Click.png"
-// ---------- Types ----------
+// ------------------------------------------------------------
+// Types
+// ------------------------------------------------------------
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface Props {
   activeWindows: WindowInfo[];
@@ -16,10 +20,14 @@ interface Props {
 }
 
 export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsSet, startMenuOpened, toggleStartMenu }: Props) {
-  // ---------- States ----------
+  // ------------------------------------------------------------
+  // States
+  // ------------------------------------------------------------
   const [startButtonPic, setStartButtonPic] = useState(startButtonDefaultPic.src);
   const [timeString, setTimeString] = useState('');
-  // ---------- Effects ----------
+  // ------------------------------------------------------------
+  // Effects
+  // ------------------------------------------------------------
   // Creates an interval that runs every second to update the time
   useEffect(() => {
     updateTime()
@@ -30,6 +38,7 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
       clearInterval(intervalId)
     }
   }, [])
+  // ------------------------------
   // Updates the start button picture state based on whether the start menu is opened or not
   useEffect(() => {
     if (!startMenuOpened && startButtonPic !== startButtonDefaultPic.src && startButtonPic !== startButtonHoverPic.src) {
@@ -38,7 +47,9 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
       setStartButtonPic(startButtonClickPic.src)
     }
   }, [startMenuOpened, startButtonPic])
-  // ---------- Functions ----------
+  // ------------------------------------------------------------
+  // Functions
+  // ------------------------------------------------------------
   // Takes in a string title, and returns a shortened version if longer then 15 characters
   const condensedTitle = (title: string) => {
     if (title.length < 18) {
@@ -47,6 +58,7 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
       return title.slice(0, 15) + '...'
     }
   }
+  // ------------------------------
   // When start menu button is clicked, updates button pic and toggles start menu
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -57,18 +69,21 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
     }
     toggleStartMenu()
   }
+  // ------------------------------
   // Changes start menu button to hovered if not opened
   const handleMouseEnter = () => {
     if (!startMenuOpened) {
       setStartButtonPic(startButtonHoverPic.src);
     }
   }
+  // ------------------------------
   // Changes start menu button to default if not opened
   const handleMouseLeave = () => {
     if (!startMenuOpened) {
       setStartButtonPic(startButtonDefaultPic.src);
     }
   }
+  // ------------------------------
   // Updates the time string state based on current time
   const updateTime = () => {
     const now = new Date();
@@ -92,7 +107,9 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
     }
     setTimeString(hourString + ":" + minuteString + " " + suffix);
   }
-  // ---------- Return ----------
+  // ------------------------------------------------------------
+  // Render
+  // ------------------------------------------------------------
   return (
     <nav className={styles.taskBar} aria-label="Task Bar">
       <div className={styles.row} aria-label="Start menu button and active windows container">

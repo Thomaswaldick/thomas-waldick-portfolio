@@ -1,9 +1,13 @@
 import Image from "next/image";
 import { StaticImageData } from "next/image"
 import styles from "./component.module.css";
-// ---------- Components ----------
+// ------------------------------------------------------------
+// Components
+// ------------------------------------------------------------
 import TooltipContainer from "../TooltipContainer/TooltipContainer";
-// ---------- Types ----------
+// ------------------------------------------------------------
+// Types
+// ------------------------------------------------------------
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface ButtonInfo {
   image: StaticImageData;
@@ -17,7 +21,9 @@ interface Props {
 }
 
 export default function SystemButton({ buttonInfo, openWindow }:Props) {
-  // ---------- Functions ----------
+  // ------------------------------------------------------------
+  // Functions
+  // ------------------------------------------------------------
   // Takes in text along with a index number and returns a div with the character at the index underlined
   const generateText = (text: string, characterIndex: number) => {
     if (characterIndex === -1) {
@@ -29,11 +35,14 @@ export default function SystemButton({ buttonInfo, openWindow }:Props) {
         </div>)
     }
   }
+  // ------------------------------
   // Opens a window based on the system button info
   const handleClick = () => {
     openWindow({icon: buttonInfo.image, title: buttonInfo.text, zIndex: 0})
   }
-  // ---------- Return ----------
+  // ------------------------------------------------------------
+  // Render
+  // ------------------------------------------------------------
   return (
     <TooltipContainer text={buttonInfo.tooltip}>
       <div onClick={handleClick} className={styles.button} aria-label="System button container">

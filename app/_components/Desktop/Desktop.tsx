@@ -1,15 +1,21 @@
 import styles from "./component.module.css";
 import { useEffect, useMemo, useState } from "react";
-// ---------- Assets ----------
+// ------------------------------------------------------------
+// Assets
+// ------------------------------------------------------------
 import recyclePic from "@/public/recycle_bin.ico";
 import resumePic from "@/public/resume.ico";
 import helpAndSupport from "@/public/helpAndSupport.ico";
 import linkedIn from "@/public/linkedIn.png";
 import github from "@/public/github.png";
 import codecademy from "@/public/codecademy.ico";
-// ---------- Components ----------
+// ------------------------------------------------------------
+// Components
+// ------------------------------------------------------------
 import DesktopShortcut from "../DesktopShortcut/DesktopShortcut";
-// ---------- Types ----------
+// ------------------------------------------------------------
+// Types
+// ------------------------------------------------------------
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface Props {
   closeStartMenu: () => void;
@@ -20,9 +26,13 @@ interface Props {
 }
 
 export default function Desktop({ closeStartMenu, mobileFeatures, screenSettingsSet, openWindow, startMenuOpened }: Props) {
-  // ---------- States ----------
+  // ------------------------------------------------------------
+  // States
+  // ------------------------------------------------------------
   const [selectedShortcut, setSelectedShortcut] = useState('')
-  // ---------- Memos ----------
+  // ------------------------------------------------------------
+  // Memos
+  // ------------------------------------------------------------
   const desktopShortcuts = useMemo(() => {
     const shortcuts = [
       { icon: recyclePic, name: 'Recycle Bin', tooltip: 'Contains the files and folders that you have deleted.' },
@@ -37,7 +47,9 @@ export default function Desktop({ closeStartMenu, mobileFeatures, screenSettings
     }
     return shortcuts;
   }, [mobileFeatures])
-  // ---------- Effects ----------
+  // ------------------------------------------------------------
+  // Effects
+  // ------------------------------------------------------------
   // Runs on initial load, creating event listener to clear selected shortcut when clicking on desktop
   useEffect(() => {
     const clearShortcut = () => {
@@ -48,19 +60,23 @@ export default function Desktop({ closeStartMenu, mobileFeatures, screenSettings
       window.removeEventListener('click', clearShortcut)
     }
   }, [])
+  // ------------------------------
   // When screen settings are set on initial load, open CV if not on mobile
   useEffect(() => {
     if (screenSettingsSet && !mobileFeatures) {
       openWindow({ icon: resumePic, title: "My CV", zIndex: 0 })
     }
   }, [mobileFeatures, screenSettingsSet])
+  // ------------------------------
   // Whenever start menu is opened, clear out selected shortcut
   useEffect(() => {
     if (startMenuOpened) {
       setSelectedShortcut('')
     }
   }, [startMenuOpened])
-  // ---------- Functions ----------
+  // ------------------------------------------------------------
+  // Functions
+  // ------------------------------------------------------------
   // When a shortcut is clicked, select shortcut and close start menu if opened
   const handleClick = (e: React.MouseEvent<HTMLElement>, iconName: string) => {
     e.stopPropagation();
@@ -69,7 +85,9 @@ export default function Desktop({ closeStartMenu, mobileFeatures, screenSettings
       closeStartMenu()
     }
   }
-  // ---------- Return ----------
+  // ------------------------------------------------------------
+  // Render
+  // ------------------------------------------------------------
   return (
     <main className={styles.desktop} aria-label="Desktop">
       {screenSettingsSet && desktopShortcuts.map((desktopShortcut) =>

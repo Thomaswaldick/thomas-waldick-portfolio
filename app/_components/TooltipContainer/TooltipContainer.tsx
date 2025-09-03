@@ -1,8 +1,12 @@
 import { ReactNode, useRef, useState } from "react";
 import styles from "./component.module.css";
-// ---------- Components ----------
+// ------------------------------------------------------------
+// Components
+// ------------------------------------------------------------
 import Tooltip from "../Tooltip/Tooltip";
-// ---------- Types ----------
+// ------------------------------------------------------------
+// Types
+// ------------------------------------------------------------
 interface Props {
   children: ReactNode;
   text: string;
@@ -11,10 +15,14 @@ interface Props {
 export default function TooltipContainer({ children, text }: Props) {
   const openTimeoutId = useRef<NodeJS.Timeout | null>(null);
   const closeTimeoutId = useRef<NodeJS.Timeout | null>(null);
-  // ---------- States ----------
+  // ------------------------------------------------------------
+  // States
+  // ------------------------------------------------------------
   const [styleInfo, setStyleInfo] = useState({});
   const [tooltipVisible, setTooltipVisible] = useState(false);
-  // ---------- Functions ----------
+  // ------------------------------------------------------------
+  // Functions
+  // ------------------------------------------------------------
   // Closes tooltip and clears and current timeouts
   const closeTooltip = () => {
     setTooltipVisible(false)
@@ -30,16 +38,19 @@ export default function TooltipContainer({ children, text }: Props) {
       openTimeoutId.current = null
     }
   }
+  // ------------------------------
   // When a mouse enters, start a timeout for 1.5 seconds, then opens tooltip
   const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
     openTimeoutId.current = setTimeout(() => {
       openTooltip(e);
     }, 1000);
   }
+  // ------------------------------
   // When a mouse leaves, closes the tooltip
   const handleMouseLeave = () => {
     closeTooltip()
   }
+  // ------------------------------
   // Opens the tooltip near the mouse cursor, the creates a timeout to close the tooltip after 5 seconds
   const openTooltip = (e: React.MouseEvent<HTMLElement>) => {
     const currentX = e.pageX;
@@ -53,7 +64,9 @@ export default function TooltipContainer({ children, text }: Props) {
       closeTooltip()
     }, 5000);
   }
-  // ---------- Return ----------
+  // ------------------------------------------------------------
+  // Render
+  // ------------------------------------------------------------
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className={styles.container} aria-label="Tooltip container">
       {children}

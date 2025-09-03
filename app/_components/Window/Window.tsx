@@ -1,9 +1,13 @@
 import Image from "next/image";
 import styles from "./component.module.css";
 import { useEffect, useState } from "react";
-// ---------- Components ----------
+// ------------------------------------------------------------
+// Components
+// ------------------------------------------------------------
 import WindowContent from "../WindowContent/WindowContent";
-// ---------- Types ----------
+// ------------------------------------------------------------
+// Types
+// ------------------------------------------------------------
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface Props {
   closeWindow: (window: WindowInfo) => void;
@@ -11,11 +15,15 @@ interface Props {
 }
 
 export default function Window({ closeWindow, windowInfo }:Props) {
-  // ---------- States ----------
+  // ------------------------------------------------------------
+  // States
+  // ------------------------------------------------------------
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [isDragging, setIsDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  // ---------- Effects ----------
+  // ------------------------------------------------------------
+  // Effects
+  // ------------------------------------------------------------
   // Handles dragging the window around when clicked down
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -31,11 +39,14 @@ export default function Window({ closeWindow, windowInfo }:Props) {
       document.removeEventListener("mouseup", handleMouseUp)
     }
   }, [isDragging, offset])
-  // ---------- Functions ----------
+  // ------------------------------------------------------------
+  // Functions
+  // ------------------------------------------------------------
   // Closes window on button click
   const handleCloseClick = () => {
     closeWindow(windowInfo)
   }
+  // ------------------------------
   // When mouse is clicked, set dragging state and offset state
   const handleMouseDown = (e: React.MouseEvent<HTMLElement>) => {
     if (e.button !== 0) return
@@ -45,15 +56,19 @@ export default function Window({ closeWindow, windowInfo }:Props) {
       y: e.clientY - position.y,
     });
   };
+  // ------------------------------
   // On button click, prevent dragging
   const handleMouseDownButton = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   }
+  // ------------------------------
   // On mouse up, set dragging state to false
   const handleMouseUp = () => {
     setIsDragging(false);
   };
-  // ---------- Return ----------
+  // ------------------------------------------------------------
+  // Render
+  // ------------------------------------------------------------
   return (
     <section className={styles.window} style={{
       height: `${windowInfo.title === 'My CV' ? 600 : 200}px`,

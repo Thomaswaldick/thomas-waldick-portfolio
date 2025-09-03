@@ -1,6 +1,8 @@
 import styles from "./component.module.css";
 import Image from "next/image";
-// ---------- Assets ----------
+// ------------------------------------------------------------
+// Assets
+// ------------------------------------------------------------
 import myProfilePic from "@/public/myProfilePic.png";
 import logOffPic from "@/public/logOff.ico";
 import powerPic from "@/public/power.ico";
@@ -21,10 +23,14 @@ import resumePic from "@/public/resume.ico";
 import linkedIn from "@/public/linkedIn.png";
 import github from "@/public/github.png";
 import codecademy from "@/public/codecademy.ico";
-// ---------- Components ----------
+// ------------------------------------------------------------
+// Components
+// ------------------------------------------------------------
 import SystemButton from "../SystemButton/SystemButton";
 import StartMenuItem from "../StartMenuItem/StartMenuItem";
-// ---------- Types ----------
+// ------------------------------------------------------------
+// Types
+// ------------------------------------------------------------
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface Props {
   openWindow: (windowInfo: WindowInfo) => void;
@@ -152,12 +158,16 @@ export default function StartMenu({ startMenuOpened, openWindow }: Props) {
       underlineIndex: 1
     }
   ]
-  // ---------- Functions ----------
+  // ------------------------------------------------------------
+  // Functions
+  // ------------------------------------------------------------
   // Runs when start menu is clicked and stops propagation to prevent it being closed
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
   }
-  // ---------- Return ----------
+  // ------------------------------------------------------------
+  // Render
+  // ------------------------------------------------------------
   return (
     startMenuOpened ? <section className={styles.startMenu} onClick={handleClick} aria-label="Start Menu">
       {/* Profile picture and username row */}
