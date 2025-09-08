@@ -30,7 +30,7 @@ export default function DesktopShortcut({ isSelected, onClick, openWindow, short
         doubleClickTimeout.current = null
       }, 500)
     } else {
-      openWindow({icon: shortcut.icon, title: shortcut.name, zIndex: 0})
+      openWindow({icon: shortcut.icon, state: "open", title: shortcut.name, zIndex: 0})
     }
   }
   // ------------------------------------------------------------
