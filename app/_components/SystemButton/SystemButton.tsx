@@ -38,7 +38,7 @@ export default function SystemButton({ buttonInfo, openWindow }:Props) {
   // ------------------------------
   // Opens a window based on the system button info
   const handleClick = () => {
-    openWindow({icon: buttonInfo.image, title: buttonInfo.text, zIndex: 0})
+    openWindow({icon: buttonInfo.image, state: "open", title: buttonInfo.text, zIndex: 0})
   }
   // ------------------------------------------------------------
   // Render

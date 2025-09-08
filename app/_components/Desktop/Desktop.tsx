@@ -64,7 +64,7 @@ export default function Desktop({ closeStartMenu, mobileFeatures, screenSettings
   // When screen settings are set on initial load, open CV if not on mobile
   useEffect(() => {
     if (screenSettingsSet && !mobileFeatures) {
-      openWindow({ icon: resumePic, title: "My CV", zIndex: 0 })
+      openWindow({ icon: resumePic, state: "open", title: "My CV", zIndex: 0 })
     }
   }, [mobileFeatures, screenSettingsSet])
   // ------------------------------

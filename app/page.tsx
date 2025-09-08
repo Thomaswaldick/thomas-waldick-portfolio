@@ -28,6 +28,7 @@ export default function Home() {
   // States
   // ------------------------------------------------------------
   const [activeWindows, setActiveWindows] = useState<WindowInfo[]>([]);
+  const [currentActiveWindow, setCurrentActiveWindow] = useState<WindowInfo | null>(null);
   const [mobileFeatures, setMobileFeatures] = useState(false);
   const [screenSettingsSet, setScreenSettings] = useState(false);
   const [startMenuOpened, setStartMenuOpened] = useState(false);
@@ -49,6 +50,11 @@ export default function Home() {
     setScreenSettings(true)
   }, [])
   // ------------------------------
+  // Update index when active windows change
+  useEffect(() => {
+    updateActiveWindowIndexes()
+  }, [activeWindows, currentActiveWindow])
+  // ------------------------------
   // Starts event listeners to open start menu on keypress and close on mouse click
   useEffect(() => {
     const toggleStartMenuButton = (e: KeyboardEvent) => {
@@ -66,14 +72,36 @@ export default function Home() {
   // ------------------------------------------------------------
   // Functions
   // ------------------------------------------------------------
-  // Closes star menu by updating state
+  // Closes start menu by updating state
   const closeStartMenu = () => {
     setStartMenuOpened(false)
   }
   // ------------------------------
   // Closes window passed in by filtering out window based on title
   const closeWindow = (windowInfo: WindowInfo) => {
-    setActiveWindows(prevWindows => prevWindows.filter((w) => w.title !== windowInfo.title))
+    const copyOfActiveWindows = [...activeWindows].filter((w) => w.title !== windowInfo.title)
+    setActiveWindows(copyOfActiveWindows)
+  }
+  // ------------------------------
+  // Maximizes window by setting state to maximized and zIndex to 1
+  const maximizeWindow = (windowInfo: WindowInfo) => {
+    windowInfo.state = "maximized"
+    const copyOfActiveWindows = [...activeWindows].map((w) => w.title === windowInfo.title ? windowInfo : w) as WindowInfo[]
+    setActiveWindows(copyOfActiveWindows)
+    if (currentActiveWindow?.title !== windowInfo.title) {
+      setCurrentActiveWindow(windowInfo)
+    }
+  }
+  // ------------------------------
+  // Minimizes window by setting state to minimized and zIndex to -1
+  const minimizeWindow = (windowInfo: WindowInfo) => {
+    windowInfo.state = "minimized"
+    windowInfo.zIndex = -1
+    const copyOfActiveWindows = [...activeWindows].map((w) => w.title === windowInfo.title ? windowInfo : w) as WindowInfo[]
+    setActiveWindows(copyOfActiveWindows)
+    if (currentActiveWindow?.title === windowInfo.title) {
+      setCurrentActiveWindow(null)
+    }
   }
   // ------------------------------
   // Opens window by first closing start menu if opened, then opens CV in new tab if on mobile, or opens window if not on mobile
@@ -89,14 +117,74 @@ export default function Home() {
     } else if (!mobileFeatures) {
       const windowAlreadyOpen = activeWindows.find((w) => w.title === windowInfo.title)
       if (!windowAlreadyOpen) {
-        setActiveWindows(prevWindows => [{ icon: windowInfo.icon, title: windowInfo.title, zIndex: prevWindows.length + 1 }, ...prevWindows])
+        const newWindow = { icon: windowInfo.icon, state: "open", title: windowInfo.title, zIndex: activeWindows.length + 1 } as WindowInfo
+        setActiveWindows(prevWindows => [...prevWindows, newWindow])
       }
     }
+    setCurrentActiveWindow(windowInfo)
   }
   // ------------------------------
   // Toggles the start menu opened state
   const toggleStartMenu = () => {
     setStartMenuOpened(prev => !prev)
+  }
+  // ------------------------------
+  // Unmaximizes window by setting state to open and zIndex to 1
+  const unmaximizeWindow = (windowInfo: WindowInfo) => {
+    windowInfo.state = "open"
+    const copyOfActiveWindows = [...activeWindows].map((w) => w.title === windowInfo.title ? windowInfo : w) as WindowInfo[]
+    setActiveWindows(copyOfActiveWindows)
+  }
+  // ------------------------------
+  // Sets the current active window state
+  const updateCurrentActiveWindow = (windowInfo: WindowInfo | null) => {
+    if (currentActiveWindow && currentActiveWindow.title === windowInfo?.title) {
+      return
+    }
+    if (windowInfo && windowInfo.state === "minimized") {
+      windowInfo.state = "open"
+    }
+    setCurrentActiveWindow(windowInfo)
+  }
+  // ------------------------------
+  // Updates the active window indexes based on the current active window
+  const updateActiveWindowIndexes = () => {
+    if (activeWindows.length === 0) {
+      return
+    }
+    const newWindows: WindowInfo[] = JSON.parse(JSON.stringify(activeWindows))
+    const updatedWindows: WindowInfo[] = []
+    let currentZ = activeWindows.length
+    let highestZIndexWindow: WindowInfo | null = null
+
+    if (currentActiveWindow) {
+      const current = newWindows.find((window) => window.title === currentActiveWindow?.title)
+      if (current) {
+        current.zIndex = currentZ
+        highestZIndexWindow = current
+      }
+    }
+    let searchIndex = currentZ
+    while (searchIndex > 0) {
+      const old = newWindows.find((window) => window.zIndex === searchIndex && window.title !== currentActiveWindow?.title && !updatedWindows.includes(window))
+      if (old) {
+        if (!highestZIndexWindow || old.zIndex > highestZIndexWindow.zIndex) {
+          highestZIndexWindow = old
+        }
+        currentZ -= 1
+        searchIndex -= 1
+        old.zIndex = currentZ
+        updatedWindows.push(old)
+      } else {
+        searchIndex -= 1
+      }
+    }
+    if (highestZIndexWindow && highestZIndexWindow.state !== "minimized" && (highestZIndexWindow.title !== currentActiveWindow?.title || currentActiveWindow === null)) {
+      setCurrentActiveWindow(highestZIndexWindow)
+    }
+    if (JSON.stringify(newWindows) !== JSON.stringify(activeWindows)) {
+      setActiveWindows(newWindows)
+    }
   }
   // ------------------------------------------------------------
   // Render
@@ -106,11 +194,11 @@ export default function Home() {
       backgroundImage: `url(${desktopPic.src})`,
     }} aria-label="Screen">
       {activeWindows.map((window) =>
-        <Window closeWindow={closeWindow} windowInfo={window} key={window.title} />
+        <Window closeWindow={closeWindow} currentActiveWindow={currentActiveWindow} windowInfo={window} key={window.title} updateCurrentActiveWindow={updateCurrentActiveWindow} maximizeWindow={maximizeWindow} minimizeWindow={minimizeWindow} unmaximizeWindow={unmaximizeWindow} />
       )}
       <Desktop closeStartMenu={closeStartMenu} openWindow={openWindow} mobileFeatures={mobileFeatures} screenSettingsSet={screenSettingsSet} startMenuOpened={startMenuOpened} />
       <StartMenu openWindow={openWindow} startMenuOpened={startMenuOpened} />
-      <Taskbar activeWindows={activeWindows} mobileFeatures={mobileFeatures} screenSettingsSet={screenSettingsSet} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} />
+      <Taskbar activeWindows={activeWindows} currentActiveWindow={currentActiveWindow} mobileFeatures={mobileFeatures} screenSettingsSet={screenSettingsSet} startMenuOpened={startMenuOpened} toggleStartMenu={toggleStartMenu} updateCurrentActiveWindow={updateCurrentActiveWindow} minimizeWindow={minimizeWindow} />
     </div>
   );
 }

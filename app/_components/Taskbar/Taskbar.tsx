@@ -13,13 +13,16 @@ import startButtonClickPic from "@/public/StartButton_Click.png"
 import { WindowInfo } from "@/app/types/WindowInfo";
 interface Props {
   activeWindows: WindowInfo[];
+  currentActiveWindow: WindowInfo | null;
   mobileFeatures: boolean;
   screenSettingsSet: boolean;
   startMenuOpened: boolean;
   toggleStartMenu: () => void;
+  minimizeWindow: (windowInfo: WindowInfo) => void;
+  updateCurrentActiveWindow: (windowInfo: WindowInfo | null) => void;
 }
 
-export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsSet, startMenuOpened, toggleStartMenu }: Props) {
+export default function Taskbar({ activeWindows, currentActiveWindow, mobileFeatures, screenSettingsSet, startMenuOpened, toggleStartMenu, updateCurrentActiveWindow, minimizeWindow }: Props) {
   // ------------------------------------------------------------
   // States
   // ------------------------------------------------------------
@@ -84,6 +87,15 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
     }
   }
   // ------------------------------
+  // When active window is clicked, minimizes if active window is clicked again, otherwise updates the current active window
+  const handleWindowClick = (windowInfo: WindowInfo) => {
+    if (currentActiveWindow?.title === windowInfo.title) {
+      minimizeWindow(windowInfo)
+    } else {
+      updateCurrentActiveWindow(windowInfo)
+    }
+  }
+  // ------------------------------
   // Updates the time string state based on current time
   const updateTime = () => {
     const now = new Date();
@@ -122,7 +134,7 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
         {/* Active Windows */}
         <div className={styles.activeWindows} aria-label="Active windows container">
           {activeWindows.map((window) =>
-            <div className={styles.window} key={window.title} aria-label="Active window container">
+            <div className={`${styles.window} ${currentActiveWindow?.title === window.title ? styles.currentActiveWindow : styles.inactiveWindow}`} key={window.title} aria-label="Active window container" onClick={() => handleWindowClick(window)}>
               <Image src={window.icon} className={styles.windowIcon} alt={`${window.title} icon`} draggable={false} aria-label="Active window icon" />
               <div className={styles.windowText} aria-label="Active window title">{condensedTitle(window.title)}</div>
             </div>
@@ -130,8 +142,10 @@ export default function Taskbar({ activeWindows, mobileFeatures, screenSettingsS
         </div>
       </div>
       {/* System Tray */}
-      <div className={styles.systemTray} aria-label="System tray">
-        <div className={styles.clock} aria-label="Clock">{timeString}</div>
+      <div className={styles.systemTrayContainer} aria-label="System tray container">
+        <div className={styles.systemTray} aria-label="System tray">
+          <div className={styles.clock} aria-label="Clock">{timeString}</div>
+        </div>
       </div>
     </nav>
   )

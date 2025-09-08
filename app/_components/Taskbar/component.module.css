@@ -1,13 +1,42 @@
 .activeWindows {
   display: flex;
   flex-direction: row;
-  gap: 2px;
   margin-left: 6px;
   padding: 4px 0;
 }
 .clock {
   color: white;
   font-size: 12px;
+}
+.currentActiveWindow {
+  background-color: #1B50B9;
+  border-left: 2px solid #14419C;
+  border-top: 2px solid #14419C;
+  border-right: 1px solid #14419C;
+  border-bottom: 1px solid #14419C;
+  border-radius: 3.5px;
+  padding: 3px 10px 3px 0;
+}
+.inactiveWindow {
+  background: linear-gradient(
+    180deg,
+    #4892F7 0%,
+    #397DF3 15%,
+    #3980F4 50%,
+    #3980F4 100%
+  );
+  border-left: 2px solid #5899f5be;
+  border-top: 1px solid #5899f5a8;
+  border-right: 1px solid #2858c7be;
+  border-bottom: 1px solid #2858c7be;
+  border-radius: 3.5px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+}
+.window:hover {
+  filter: brightness(125%);
+}
+.window:hover .windowIcon {
+  filter: brightness(80%);
 }
 .row {
   display: flex;
@@ -32,8 +61,18 @@
         #0059ff7c 96%,
         #0059ff7c 100%
     );
-  border-left: 3px solid #8adcf638;
+  border-left: 2px solid #18d6f775;
   display: flex;
+  flex: 1;
+  justify-content: center;
+  max-width: 70px;
+  position: relative;
+}
+.systemTrayContainer {
+  border-left: 2px solid #114b787e;
+  border-top: 1px solid #0e6ac50e;
+  display: flex;
+  flex-direction: row;
   flex: 1;
   justify-content: center;
   max-width: 70px;
@@ -58,15 +97,6 @@
 }
 .window {
   align-items: center;
-  /* background-color: #3980F4; */
-  background: linear-gradient(
-    180deg,
-    #4892F7 0%,
-    #397DF3 15%,
-    #3980F4 50%,
-    #3980F4 100%
-  );
-  border-radius: 2px;
   display: flex;
   flex-direction: row;
   gap: 6px;
@@ -74,8 +104,8 @@
   width: 150px;
 }
 .windowIcon {
-  height: 20px;
-  width: 20px;
+  height: 17px;
+  width: 17px;
 }
 .windowText {
   color: white;

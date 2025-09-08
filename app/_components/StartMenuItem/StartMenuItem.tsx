@@ -28,7 +28,7 @@ export default function StartMenuItem({ bold, isFavorite, itemInfo, openWindow }
   // ------------------------------------------------------------
   // Opens a window based on the start menu item info
   const handleClick = () => {
-    openWindow({ icon: itemInfo.image, title: itemInfo.text, zIndex: 0 })
+    openWindow({ icon: itemInfo.image, state: "open", title: itemInfo.text, zIndex: 0 })
   }
   // ------------------------------------------------------------
   // Render
